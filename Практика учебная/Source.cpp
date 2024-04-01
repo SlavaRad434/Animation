@@ -4,7 +4,8 @@
 
 using namespace std;
 void settingsSize();
-titles test[] = { (string)"Size", settingsSize, true};
+titles test[] = { "Size", settingsSize, true}, test2 = { "2", settingsSize, true };
+
 Graphics Wid;
 Menu M1(test,1);
 
@@ -17,6 +18,8 @@ int main() {
 		auto old = InRec.Event.WindowBufferSizeEvent.dwSize.X;
 	for (;;) {
 		M1.openMenu();
+
+		test2 = M1[1] ;
 		//settingsSize();
 		//HANDLE out_handle = GetStdHandle(STD_OUTPUT_HANDLE);
 		//COORD A={ 720, 480 };
@@ -135,30 +138,38 @@ while (1) {
 		case '5':
 			printf_s("Введите разрешение через пробел\n");
 			ch = _getch();
-			for (i = 0; ch != 27 && ch != '\n' && ch != ' '; i++) {
-				if (ch >= 0x30 && ch <= 0x39)
-					X = X + (ch & 0x0F);
-				X = X * 10;
-				cout << ch;
+			for (i = 0; ch != 27 && ch != '\r' && ch != ' '; i++) {
+				if (ch >= 0x30 && ch <= 0x39) {
+					X = X + (ch - '0');
+					X = X * 10;
+					cout << ch;
+				}
 				ch = _getch();
 			}
 			X = X / 10;
 			if (ch == 27)
 				continue;
+			else if (ch == '\r')
+				cout << endl;
+			else 
 			cout << ch;
 			
 			ch = _getch();
-			for (i = 0; ch != 27 && ch != '\n' && ch != ' '; i++) {
-				if(ch >= 0x30 && ch <= 0x39)
-					Y = Y + (ch & 0x0F);
-				Y = Y * 10;
-				cout << ch;
+			for (i = 0; ch != 27 && ch != '\r' && ch != ' '; i++) {
+				if (ch >= 0x30 && ch <= 0x39) {
+					Y = Y + (ch - '0');
+					Y = Y * 10;
+					cout << ch;
+				}
 				ch = _getch();
 			}
 			Y = Y / 10;
 			if (ch == 27)
 				continue;
-			cout << ch;
+			else if (ch == '\r')
+				cout << endl;
+			else
+				cout << ch;
 			A.Y = Y;
 			A.X = X;
 			
