@@ -44,7 +44,7 @@ public:
 
 		butt = (_getch());
 		if (butt >= 0x31 && butt <= 0x39)
-			bt[(int)(butt - '1')].fn;
+			bt[(int)(butt - '1')].fn();
 
 
 
