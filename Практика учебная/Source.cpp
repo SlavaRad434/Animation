@@ -1,16 +1,23 @@
+#pragma once
 #include "Graphics.h"
+#include "Menu.h"
 
-Graphics Wid;
 using namespace std;
-void settingsSize();
+//void settingsSize();
+titles test[] = { (string)"Size", (*settingsSize)(), true };
+Graphics Wid;
+Menu M1(test,1);
+
+//{ (string)"Size", (*settingsSize)(), true }
 int main() {
+	
 		INPUT_RECORD InRec;
 		DWORD NumEvents;
 		ReadConsoleInputW(Wid.dc, &InRec, 1, &NumEvents);
 		auto old = InRec.Event.WindowBufferSizeEvent.dwSize.X;
 	for (;;) {
 		
-		settingsSize();
+		//settingsSize();
 		//HANDLE out_handle = GetStdHandle(STD_OUTPUT_HANDLE);
 		//COORD A={ 720, 480 };
 		//Wid.setSizeCon(A);
@@ -88,7 +95,7 @@ char* IntToStr(int n)
 	return(temp);
 }
 
-void settingsSize() {//int boot;
+bool settingsSize() {//int boot;
 	//bool flag;
 	int i,X=0,Y=0;
 	char ch;
@@ -160,7 +167,7 @@ while (1) {
 			break;
 		case 27:
 			
-			return;
+			return 1;
 			break;
 		default:
 			continue;
@@ -170,4 +177,5 @@ while (1) {
 		
 		Wid.setSizeCon(A);
 	}
+return 1;
 }
