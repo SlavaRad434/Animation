@@ -4,10 +4,22 @@
 
 using namespace std;
 void settingsSize();
-titles test[] = { "Size", settingsSize, true}, test2 = { "2", settingsSize, true };
+
+int maxDigit(int x) {
+	int i;
+	for (i = 1; x = x / 10; i++);
+	return i;
+
+}
+void maxDigit() {
+	int x;
+	cin >> x;
+	maxDigit(x);
+}
+titles test[] = { { "Size", settingsSize, true}, { "2", maxDigit, true } };
 
 Graphics Wid;
-Menu M1(test,1);
+Menu M1(test,2);
 
 //{ (string)"Size", (*settingsSize)(), true }
 int main() {
@@ -19,7 +31,7 @@ int main() {
 	for (;;) {
 		M1.openMenu();
 
-		test2 = M1[1] ;
+		 // M1[1] = test2;
 		//settingsSize();
 		//HANDLE out_handle = GetStdHandle(STD_OUTPUT_HANDLE);
 		//COORD A={ 720, 480 };
@@ -190,3 +202,4 @@ while (1) {
 	}
 return ;
 }
+
