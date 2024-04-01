@@ -3,8 +3,8 @@
 #include "Menu.h"
 
 using namespace std;
-//void settingsSize();
-titles test[] = { (string)"Size", (*settingsSize)(), true };
+void settingsSize();
+titles test[] = { (string)"Size", settingsSize, true};
 Graphics Wid;
 Menu M1(test,1);
 
@@ -16,7 +16,7 @@ int main() {
 		ReadConsoleInputW(Wid.dc, &InRec, 1, &NumEvents);
 		auto old = InRec.Event.WindowBufferSizeEvent.dwSize.X;
 	for (;;) {
-		
+		M1.openMenu();
 		//settingsSize();
 		//HANDLE out_handle = GetStdHandle(STD_OUTPUT_HANDLE);
 		//COORD A={ 720, 480 };
@@ -95,7 +95,7 @@ char* IntToStr(int n)
 	return(temp);
 }
 
-bool settingsSize() {//int boot;
+void settingsSize() {//int boot;
 	//bool flag;
 	int i,X=0,Y=0;
 	char ch;
@@ -167,7 +167,7 @@ while (1) {
 			break;
 		case 27:
 			
-			return 1;
+			return ;
 			break;
 		default:
 			continue;
@@ -177,5 +177,5 @@ while (1) {
 		
 		Wid.setSizeCon(A);
 	}
-return 1;
+return ;
 }

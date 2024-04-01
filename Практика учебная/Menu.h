@@ -4,12 +4,12 @@
 #include<vector>
 #include <conio.h>
 using namespace std;
-bool settingsSize();
+
 
 struct titles
 {
 	string name;
-	bool fun;
+	void (*fn)();
 	bool open=1;
 
 };
@@ -20,33 +20,33 @@ private:
 	vector<titles> _title;
 
 public:
-	
-	Menu(titles* In, int n);
-	void openMenu();
 
-};
+	//Menu(titles* In, int n);
+	//void openMenu();
 
-Menu::Menu(titles* In,int n) {
-	int i;
-	for(i=0;i< n;i++)
-	_title.push_back(In[i]);
-}
+	Menu(titles* In, int n) {
+		int Menu_i;
+		for (Menu_i = 0; Menu_i < n; Menu_i++)
+			_title.push_back(In[Menu_i]);
+	}
 
-void Menu:: openMenu() {
-	int i, k;
-	char butt;
-	vector<titles> bt;
-	system("cls");
-	for (i = 0, k = 1; i < _title.size(); i++)
-		if (_title[i].open) {
-			bt.push_back(_title[i]);
-			cout << ' ' << k << ')' << _title[i].name << endl;
-			k++;}
+	void openMenu() {
+		int Menu_i, Menu_k;
+		char butt;
+		vector<titles> bt;
+		system("cls");
+		for (Menu_i = 0, Menu_k = 1; Menu_i < _title.size(); Menu_i++)
+			if (_title[Menu_i].open) {
+				bt.push_back(_title[Menu_i]);
+				cout << ' ' << Menu_k << ')' << _title[Menu_i].name << endl;
+				Menu_k++;
+			}
 
-	butt = (_getch());
-	if (butt >= 0x31 && butt <= 0x39)
-		bt[(int)(butt - '0')];
-
+		butt = (_getch());
+		if (butt >= 0x31 && butt <= 0x39)
+			bt[(int)(butt - '1')].fn;
 
 
+
+	}
 };
