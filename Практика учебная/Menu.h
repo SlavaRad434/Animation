@@ -12,6 +12,7 @@ struct titles
 	string name;
 	void (*fn)();
 	bool open=1;
+	string status = "\0";
 
 };
 //titles test = { (string)"Size", (*settingsSize)(), true };
@@ -43,9 +44,10 @@ public:
 		while (1)
 		{
 			system("cls");
-			for(Menu_i = 0, Menu_k = 1; Menu_i < bt.size(); Menu_i++)
-					cout << ' ' << Menu_i+1 << ')' << bt[Menu_i].name << endl;
-				
+			for (Menu_i = 0, Menu_k = 1; Menu_i < bt.size(); Menu_i++) {
+				cout << ' ' << Menu_i + 1 << ')' << bt[Menu_i].name <<'\t'<< bt[Menu_i].status << endl;
+				//if (bt[Menu_i].status[0] != '\0')
+			}
 					
 				
 			gotoxy(poz);
@@ -62,7 +64,7 @@ public:
 				if (poz)
 					poz--;
 				else
-					poz = bt.size();
+					poz = bt.size()-1;
 				gotoxy(poz);
 				cout << '>';
 			}
@@ -77,17 +79,17 @@ public:
 				gotoxy(poz);
 				cout << '>';
 			}
-			else if (butt == 72) {
+			//else if (butt == 72) {
 
-				gotoxy(poz);
-				cout << ' ';
-				if (poz)
-					poz++;
-				else
-					poz = bt.size() - 1;
-				gotoxy(poz);
-				cout << '>';
-			}
+			//	gotoxy(poz);
+			//	cout << ' ';
+			//	if (poz)
+			//		poz++;
+			//	else
+			//		poz = bt.size() - 1;
+			//	gotoxy(poz);
+			//	cout << '>';
+			//}
 			else if (butt == '\r')
 				bt[poz].fn();
 

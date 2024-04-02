@@ -16,7 +16,7 @@ void maxDigit() {
 	cin >> x;
 	maxDigit(x);
 }
-titles test[] = { { "Size", settingsSize, true}, { "2", maxDigit, true } };
+titles test[] = { { "Size", settingsSize, true,"1280 720"}, {"2", maxDigit, true,"as"}};
 
 Graphics Wid;
 Menu M1(test,2);
