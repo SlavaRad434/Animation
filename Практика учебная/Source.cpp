@@ -1,9 +1,19 @@
-#pragma once
+
+#include <Windows.h>
+#include <stdio.h>
+//#include <time.h>
+#include <conio.h>
+#include <iostream>
+//using namespace std;
+#include<string>
+#include<vector>
 #include "Graphics.h"
 #include "Menu.h"
+#include "Shaders.h"
 
 using namespace std;
 void settingsSize();
+
 
 int maxDigit(int x) {
 	int i;
@@ -13,41 +23,92 @@ int maxDigit(int x) {
 }
 void maxDigit() {
 	int x;
+	cout << "¬ведите число"<< endl;
 	cin >> x;
 	maxDigit(x);
+	cout << x;
+
 }
 titles test[] = { { "Size", settingsSize, true,"1280 720"}, {"2", maxDigit, true,"as"}};
 
 Graphics Wid;
 Menu M1(test,2);
 
-//{ (string)"Size", (*settingsSize)(), true }
-int main() {
-	
-		INPUT_RECORD InRec;
-		DWORD NumEvents;
-		ReadConsoleInputW(Wid.dc, &InRec, 1, &NumEvents);
-		auto old = InRec.Event.WindowBufferSizeEvent.dwSize.X;
-	for (;;) {
-		M1.openMenu();
+element el{
+	{1.01,0.1},
+	{0.01,0.01},
+	{0,0,255},
 
-		 // M1[1] = test2;
-		//settingsSize();
-		//HANDLE out_handle = GetStdHandle(STD_OUTPUT_HANDLE);
-		//COORD A={ 720, 480 };
-		//Wid.setSizeCon(A);
-		//ReadConsoleInputW(Wid.dc, &InRec, 1, &NumEvents);
-		//WaitForSingleObject(Wid.dc, INFINITE);
-		////Windus.Set_pen(Windus.dc,)
-		//if(InRec.EventType == WINDOW_BUFFER_SIZE_EVENT)
-		//Wid.Osi();
-		//if (InRec.Event.WindowBufferSizeEvent.dwSize.X != old)
-		//	system("pau");
-		//old = InRec.Event.WindowBufferSizeEvent.dwSize.X;
-	
-	
+};
+
+//{ (string)"Size", (*settingsSize)(), true }
+
+int main() {
+	srand((unsigned int)time(0));
+	int i;
+	int genel;
+	vector<Obect> indraw;
+	//indraw.push_back()
+	//M1.openMenu();
+	float disp = 0.2,spid=0.002;
+	Obect invec;
+	vector<void*> un1;
+
+	un1.push_back(&disp);
+	settingsSize();
+	//Graphics Wid;
+	COORD A = { Wid.GetWid(),Wid.GetWid() };
+	system("cls");
+		genel = 5;
+		while (genel--) {
+			el = {
+				{1 + randf(0.1),randf(1)},
+			{0.01,0.01},
+			GenRandColor(),
+			};
+			invec.el = el;
+			invec.pShader = Star;
+			invec.un = un1;
+			indraw.push_back(invec);
+		}
+		while (1) {
+		system("cls");
+		drawObgects(indraw, A, Wid.dc);
+		//Star(el, A, Wid.dc, un1);
+		for (i = 0; i < indraw.size(); i++)
+			indraw[i].el.poz.x -= spid;
+		//_getch();
+		//Sleep(100);
+		
 	}
 	
+	//
+	//	INPUT_RECORD InRec;
+	//	DWORD NumEvents;
+	//	ReadConsoleInputW(Wid.dc, &InRec, 1, &NumEvents);
+	//	auto old = InRec.Event.WindowBufferSizeEvent.dwSize.X;
+
+	//	
+	//for (;;) {
+	//	M1.openMenu();
+
+	//	 // M1[1] = test2;
+	//	//settingsSize();
+	//	//HANDLE out_handle = GetStdHandle(STD_OUTPUT_HANDLE);
+	//	//COORD A={ 720, 480 };
+	//	//Wid.setSizeCon(A);
+	//	//ReadConsoleInputW(Wid.dc, &InRec, 1, &NumEvents);
+	//	//WaitForSingleObject(Wid.dc, INFINITE);
+	//	////Windus.Set_pen(Windus.dc,)
+	//	//if(InRec.EventType == WINDOW_BUFFER_SIZE_EVENT)
+	//	//Wid.Osi();
+	//	//if (InRec.Event.WindowBufferSizeEvent.dwSize.X != old)
+	//	//	system("pau");
+	//	//old = InRec.Event.WindowBufferSizeEvent.dwSize.X;
+	//
+	//
+	//}
+	//
 
 }
 

@@ -11,6 +11,32 @@
 #include<vector>
 
 
+//struct vec2 {
+//	float x = 0;
+//	float y = 0;
+//
+//};
+//struct vec3 {
+//	float x;
+//	float y;
+//	float z;
+//
+//};
+//
+//typedef void Shader;
+//
+//struct element
+//{
+//	vec2 poz;
+//	vec2 size;
+//	COLORREF color;
+//	Shader* shader;
+//};
+//typedef	vector<element> Obect;
+//Shader(*pShader)(element);
+//
+////Shader Star(element el);
+//Shader(*pShader)(element);
 class Graphics
 {
 private:
@@ -18,6 +44,8 @@ private:
 	HBRUSH hBrush = NULL;
 	HWND hWnd = NULL;
 	int wid, heg;
+
+
 public:
 	HDC dc;
 	void Set_pen(HDC dc, COLORREF, int);
@@ -108,6 +136,8 @@ void Graphics::setSizeCon(COORD A) {
 	MoveWindow(hWnd,0,0,A.X,A.Y,1);
 	//SetConsoleWindowInfo(out_handle, true, &src);
 	SetConsoleScreenBufferSize(out_handle, crd);
+	wid = A.X;
+		heg = A.Y;
 }
 
 //RECT scr;

@@ -141,8 +141,11 @@
   <ItemGroup>
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="Menu.h" />
+    <ClCompile Include="Menu.cpp" />
+    <ClCompile Include="Shaders.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Shaders.h" />
     <ClInclude Include="Graphics.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
