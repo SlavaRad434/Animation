@@ -10,6 +10,8 @@
 #include<vector>
 //#include "Graphics.h"
 #include <cmath>
+#include <time.h>
+#include <deque>
 //#include <wingdi.h>
 
 using namespace std;
@@ -72,7 +74,7 @@ Shader Star(element el, COORD winsiz, HDC dc, vector<void*> vunif);
 
 //Shader (*pShader)(element);
 //void drawelement(element el);
-void drawObgects(vector<Obect> obect, COORD winsiz, HDC dc);
+void drawObgects(deque< vector<Obect>>, COORD winsiz, HDC dc);
 
 
 void converting(element el, COORD winsiz, realPoz* BufPoz);

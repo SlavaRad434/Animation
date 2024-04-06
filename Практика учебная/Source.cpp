@@ -7,6 +7,7 @@
 //using namespace std;
 #include<string>
 #include<vector>
+#include <deque>
 #include "Graphics.h"
 #include "Menu.h"
 #include "Shaders.h"
@@ -45,12 +46,13 @@ element el{
 
 int main() {
 	srand((unsigned int)time(0));
-	int i;
+	int i, j, lop = 0, vbeg = 0;;
 	int genel;
-	vector<Obect> indraw;
+	vector<Obect> inqueue;
+	deque< vector<Obect>> indraw;
 	//indraw.push_back()
 	//M1.openMenu();
-	float disp = 0.2,spid=0.002;
+	float disp = 1.0f,spid= -0.2f, begin,end, dt,deb=0;
 	Obect invec;
 	vector<void*> un1;
 
@@ -62,25 +64,63 @@ int main() {
 		genel = 5;
 		while (genel--) {
 			el = {
-				{1 + randf(0.1),randf(1)},
-			{0.01,0.01},
+				{ 1.0f + randf(0.1),randf(2)},
+			{0.02,0.02},
 			GenRandColor(),
 			};
 			invec.el = el;
 			invec.pShader = Star;
 			invec.un = un1;
-			indraw.push_back(invec);
+			inqueue.push_back(invec);
 		}
+		indraw.push_back(inqueue);
 		while (1) {
-		system("cls");
-		drawObgects(indraw, A, Wid.dc);
-		//Star(el, A, Wid.dc, un1);
-		for (i = 0; i < indraw.size(); i++)
-			indraw[i].el.poz.x -= spid;
-		//_getch();
-		//Sleep(100);
-		
-	}
+
+			begin = clock();
+			//if(lop%2)
+				system("cls");
+			drawObgects(indraw, A, Wid.dc);
+			//Star(el, A, Wid.dc, un1);
+			end = clock();
+			dt = (end - begin) / 1000;
+			//cout << deb;
+			//deb = indraw[vbeg][0].el.poz.x;
+			//cout << deb;
+			if (indraw[0][0].el.poz.x < 0.0f) {
+				indraw.pop_front();
+				//continue;
+			}
+			for (j = vbeg; j < indraw.size(); j++) {
+
+					for (i = 0; i < indraw[j].size(); i++)
+						indraw[j][i].el.poz.x += spid * dt;
+			}
+			//if (vbeg / 10) {
+
+			//}
+			//_getch();
+			//Sleep(100);
+			if (!(rand() % 5)){
+				genel = rand() % 4+1;
+				inqueue.clear();
+				while (genel--) {
+
+					el = {
+				{ 1.0f + randf(0.1),randf(2)},
+			{0.02,0.02},
+			GenRandColor(),
+					};
+					invec.el = el;
+					invec.pShader = Star;
+					invec.un = un1;
+					inqueue.push_back(invec);
+				}
+				
+				indraw.push_back(inqueue);
+			}
+			lop++;
+		}
+	
 	
 	//
 	//	INPUT_RECORD InRec;

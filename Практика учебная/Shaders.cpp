@@ -43,7 +43,7 @@ int Shader_i, Shader_j;
 
 
 COLOR operator* (COLOR cord, float k) {
-	cord.B *= k;
+	cord.R *= k;
 	cord.G *= k;
 	cord.B *= k;
 	return cord;
@@ -60,11 +60,12 @@ float randf(float max) {
 	return rand() % 100000 / 100000.0 * max;
 
 }
-void drawObgects(vector<Obect> obect, COORD winsiz, HDC dc) {
-	int i;
-	for (i = 0; i < obect.size(); i++)
-		obect[i].pShader(obect[i].el, winsiz, dc, obect[i].un);
-
+void drawObgects(deque<vector<Obect>> obect, COORD winsiz, HDC dc) {
+	int i,j;
+	for (j = 0; j < obect.size(); j++)
+	for (i = 0; i < obect[j].size(); i++)
+		obect[j][i].pShader(obect[j][i].el, winsiz, dc, obect[j][i].un);
+	obect;
 
 }
 
