@@ -35,5 +35,8 @@
     <ClInclude Include="Shaders.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="elementConstruct.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

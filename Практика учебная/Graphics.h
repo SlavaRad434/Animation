@@ -47,7 +47,7 @@ private:
 
 
 public:
-	HDC dc;
+	HDC dc,dc1;
 	void Set_pen(HDC dc, COLORREF, int);
 	void Set_brush(HDC dc, COLORREF, bool);
 	void Line(HDC dc, int, int, int, int);

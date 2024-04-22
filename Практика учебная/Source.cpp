@@ -32,68 +32,149 @@ void maxDigit() {
 }
 titles test[] = { { "Size", settingsSize, true,"1280 720"}, {"2", maxDigit, true,"as"}};
 
-Graphics Wid;
-Menu M1(test,2);
+Graphics Wid;//окно
+Menu M1(test,2);//меню
+vector<Obect> rocet;
+//element corpys,obtec,dvig;
+
+element corpys  {
+	{0.5f,0.5f},
+	{0.15f, 0.35f},
+	{0,0,255},
+};
+
+element optec{
+	{ 0.5f,0.49999f},
+	{ 0.15f /3, 0.10f},
+	{255,255,255},
+
+};
+
+
 
 element el{
 	{1.01,0.1},
 	{0.01,0.01},
 	{0,0,255},
-
 };
 
 //{ (string)"Size", (*settingsSize)(), true }
 
 int main() {
+	HDC dc2;
 	srand((unsigned int)time(0));
-	int i, j, lop = 0, vbeg = 0;;
+	int i, j, lop = 0, vbeg = 0;//счетчики
+
+	int genSta=5, maxColvoBildStar=4;//1/n шанс создать новый массив звезд
+	//максимальное -1 количество звезд которое может создаться 
+	
 	int genel;
-	vector<Obect> inqueue;
-	deque< vector<Obect>> indraw;
+	//vector<Obect> rocet;
+	vector<Obect> indraw,indrawRocet;//группа обьектов
+	deque< vector<Obect>> deqStar;//двустороний вектор для удаления первого элемента
 	//indraw.push_back()
 	//M1.openMenu();
-	float disp = 1.0f,spid= -0.2f, begin,end, dt,deb=0;
+	
+	float disp = 1.0f, spidStar = -0.1f, begin, end, dt, deb = 0, spidRec = 3;
+	//Изменение цвета
+	//Скорость звезд в экранах в секунду
+	//время начала
+	//время конца
+	//изменение времени
+	//
 	Obect invec;
-	vector<void*> un1;
+	vector<void*> un1,uncorp;
 
-	un1.push_back(&disp);
 	settingsSize();
+	//auto dc1 = CreateConsoleScreenBuffer(GENERIC_WRITE, 0, 0, CONSOLE_TEXTMODE_BUFFER, 0);
+	//SetConsoleActiveScreenBuffer(dc1);
+
+	//Юниформ переменная для звезды
+	un1.push_back(&disp);
+	
 	//Graphics Wid;
-	COORD A = { Wid.GetWid(),Wid.GetWid() };
-	system("cls");
-		genel = 5;
-		while (genel--) {
-			el = {
-				{ 1.0f + randf(0.1),randf(2)},
-			{0.02,0.02},
-			GenRandColor(),
-			};
-			invec.el = el;
-			invec.pShader = Star;
-			invec.un = un1;
-			inqueue.push_back(invec);
-		}
-		indraw.push_back(inqueue);
+	COORD A = { Wid.GetWid(),Wid.GetHeg() };
+
+	//Юниформ переменные для Корпус
+	int corpdepth = 0;
+	float fcorpdepth = 0;
+	uncorp.push_back((void*)&corpdepth);//[0]
+	
+	float widthpen = 3;
+	uncorp.push_back((void*)&widthpen);//[1]
+
+	COLORREF corpRecCol= RGB(255, 0, 0);
+	uncorp.push_back((void*)&corpRecCol);//[2]
+	int de = 5;
+	uncorp.push_back((void*)&de);//[3]
+
+
+	//
+		//genel = 5;
+		invec.el = corpys;
+		invec.pShader = Recurs;
+		invec.un = uncorp;
+		indrawRocet.push_back(invec);
+
+		invec.el = optec;
+		invec.pShader = treugolnic;
+		invec.un = uncorp;
+		indrawRocet.push_back(invec);
+		//while (genel--) {
+		//	el = {
+		//		{ 1.0f + randf(0.1),randf(1)},
+		//	{0.01,0.01},
+		//	GenRandColor(),
+		//	};
+		//	invec.el = el;
+		//	invec.pShader = Star;
+		//	invec.un = un1;
+		//	indraw.push_back(invec);
+		//}
+
+		//deqStar.push_back(indraw);
+		system("cls");
+
+		dc2 = CreateCompatibleDC(Wid.dc);//Создание совместимого контескста
+	auto bitMap = CreateCompatibleBitmap(Wid.dc,Wid.GetWid(), Wid.GetHeg());//создание растрового изображения
+	SelectObject(dc2, bitMap);//выбор изображения для рисования
+	begin = clock();
+
+	//bitMap = CreateCompatibleBitmap(Wid.dc, Wid.GetWid(), Wid.GetHeg());
 		while (1) {
+			//SetConsoleActiveScreenBuffer(dc1);
+
+			//drawObgects(indrawRocet, A, dc2);//нарисовать ракету
 
 			begin = clock();
-			//if(lop%2)
-				system("cls");
-			drawObgects(indraw, A, Wid.dc);
-			//Star(el, A, Wid.dc, un1);
+
+			if (BitBlt(Wid.dc, 0, 0, Wid.GetWid(), Wid.GetHeg(), dc2, 0, 0, SRCCOPY))//прямое копирование пикселей в окно
+				DeleteObject(bitMap);//
+			bitMap = CreateCompatibleBitmap(Wid.dc, Wid.GetWid(), Wid.GetHeg());
+			SelectObject(dc2, bitMap);
+			//if(!SwapBuffers(dc2))
+			//	cout<<GetLastError();
+				
+				//drawObgects(indrawRocet, A, dc2);
+				for(i=0;i< deqStar.size();i++)
+			drawObgects(deqStar[i], A, dc2);
+				drawObgects(indrawRocet, A, dc2);
+				
+			//Star(el, A, dc2, un1);
 			end = clock();
 			dt = (end - begin) / 1000;
-			//cout << deb;
+			//cout << 1/dt;
 			//deb = indraw[vbeg][0].el.poz.x;
 			//cout << deb;
-			if (indraw[0][0].el.poz.x < 0.0f) {
-				indraw.pop_front();
-				//continue;
-			}
-			for (j = vbeg; j < indraw.size(); j++) {
+			if (deqStar.size()) {
+				if (deqStar[0][0].el.poz.x < 0.0f) {
+					deqStar.pop_front();
+				}
+				for (j = vbeg; j < deqStar.size(); j++) {
 
-					for (i = 0; i < indraw[j].size(); i++)
-						indraw[j][i].el.poz.x += spid * dt;
+					for (i = 0; i < deqStar[j].size(); i++)
+						deqStar[j][i].el.poz.x += spidStar * dt;
+				}
 			}
 			//if (vbeg / 10) {
 
@@ -101,24 +182,28 @@ int main() {
 			//_getch();
 			//Sleep(100);
 			if (!(rand() % 5)){
-				genel = rand() % 4+1;
-				inqueue.clear();
+				genel = rand() % maxColvoBildStar + 1;
+				indraw.clear();
 				while (genel--) {
 
 					el = {
-				{ 1.0f + randf(0.1),randf(2)},
-			{0.02,0.02},
+				{ 1.0f + randf(0.1),randf(1)},
+			{0.01,0.01},
 			GenRandColor(),
 					};
 					invec.el = el;
 					invec.pShader = Star;
 					invec.un = un1;
-					inqueue.push_back(invec);
+					indraw.push_back(invec);
 				}
-				
-				indraw.push_back(inqueue);
+			//	SetConsoleActiveScreenBuffer(dc2);
+				deqStar.push_back(indraw);
 			}
 			lop++;
+
+			fcorpdepth += dt * spidRec;
+			corpdepth = fcorpdepth;
+			corpdepth %= de;
 		}
 	
 	
@@ -249,6 +334,8 @@ while (1) {
 
 			break;
 		case '5':
+			X = 0;
+			Y = 0;
 			printf_s("Введите разрешение через пробел\n");
 			ch = _getch();
 			for (i = 0; ch != 27 && ch != '\r' && ch != ' '; i++) {
@@ -259,7 +346,7 @@ while (1) {
 				}
 				ch = _getch();
 			}
-			X = X / 10;
+			X = (X / 10);
 			if (ch == 27)
 				continue;
 			else if (ch == '\r')
@@ -276,7 +363,7 @@ while (1) {
 				}
 				ch = _getch();
 			}
-			Y = Y / 10;
+			Y = (Y / 10);
 			if (ch == 27)
 				continue;
 			else if (ch == '\r')

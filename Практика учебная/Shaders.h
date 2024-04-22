@@ -29,9 +29,9 @@ struct vec3 {
 };
 struct COLOR 
 {
-	long R;
-	long G;
-	long B;
+	unsigned char R;
+	unsigned char G;
+	unsigned char B;
 
 };
 
@@ -74,8 +74,11 @@ Shader Star(element el, COORD winsiz, HDC dc, vector<void*> vunif);
 
 //Shader (*pShader)(element);
 //void drawelement(element el);
-void drawObgects(deque< vector<Obect>>, COORD winsiz, HDC dc);
+void drawObgects(vector<Obect>, COORD winsiz, HDC dc);
 
+Shader Recurs(element el, COORD winsiz, HDC dc, vector<void*> vunif);
+
+Shader treugolnic(element el, COORD winsiz, HDC dc, vector<void*> vunif);
 
 void converting(element el, COORD winsiz, realPoz* BufPoz);
 
