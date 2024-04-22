@@ -80,7 +80,10 @@ Shader Recurs(element el, COORD winsiz, HDC dc, vector<void*> vunif);
 
 Shader treugolnic(element el, COORD winsiz, HDC dc, vector<void*> vunif);
 
+Shader ShDvig(element el, COORD winsiz, HDC dc, vector<void*> vunif);
+
 void converting(element el, COORD winsiz, realPoz* BufPoz);
+
 
 COLOR GenRandColor();
 

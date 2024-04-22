@@ -124,18 +124,23 @@ void Graphics::setSizeCon(COORD A) {
 
 	 //out_handle = GetStdHandle(STD_OUTPUT_HANDLE);
 	 
-	COORD crd = { A.X / CharSiz.X-4, A.Y / CharSiz.Y-4 };
+	COORD crd = { A.X / CharSiz.X, A.Y / CharSiz.Y };
 	SMALL_RECT src = { 0, 0, crd.X - 1, crd.Y - 1 };
 	MoveWindow(hWnd, 0, 0, CharSiz.X, CharSiz.Y, 1);
 	if (!SetConsoleScreenBufferSize(out_handle, crd)) {
-		//auto err = GetLastError();
-		//std::cout << err;
+		auto err = GetLastError();
+		std::cout << err;
 
-		//system("pause");
+		system("pause");
 	}
-	MoveWindow(hWnd,0,0,A.X,A.Y,1);
+	MoveWindow(hWnd,-4,-4,A.X+4* CharSiz.X,A.Y + 4*CharSiz.Y,1);
 	//SetConsoleWindowInfo(out_handle, true, &src);
-	SetConsoleScreenBufferSize(out_handle, crd);
+	if (!SetConsoleScreenBufferSize(out_handle, crd)) {
+		auto err = GetLastError();
+		std::cout << err;
+
+		system("pause");
+	}
 	wid = A.X;
 		heg = A.Y;
 }

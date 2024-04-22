@@ -51,6 +51,7 @@ int Shader_i, Shader_j;
 
 				}
 };
+
 COORD bufBegin;
 void recLin(HDC dc, realPoz BufPoz,COORD beg, int depth,COLORREF col,float XonY,int ed) {
 	if (depth) {
@@ -142,6 +143,7 @@ Shader Recurs(element el, COORD winsiz, HDC dc, vector<void*> vunif) {
 };
 
 Shader treugolnic(element el, COORD winsiz, HDC dc, vector<void*> vunif) {
+	el.size.y = el.size.y * el.size.x * (winsiz.X / (float)winsiz.Y);
 	realPoz BufPoz;
 	converting(el, winsiz, &BufPoz);
 	POINT treugol[3]{
@@ -154,6 +156,37 @@ Shader treugolnic(element el, COORD winsiz, HDC dc, vector<void*> vunif) {
 	Polygon(dc, treugol, 3);
 	DeleteObject(hBrush);
 	DeleteObject(hPen);
+}
+
+
+Shader ShDvig(element el, COORD winsiz, HDC dc, vector<void*> vunif) 
+{
+	el.size.y = el.size.y * el.size.x * (winsiz.X / (float)winsiz.Y);
+	realPoz BufPoz;
+	converting(el, winsiz, &BufPoz);
+	float suhen = *(float*)vunif[0];
+	POINT Dvig[4]{
+		{BufPoz.A.X,BufPoz.A.Y},
+		{BufPoz.B.X, BufPoz.A.Y + (BufPoz.B.Y - BufPoz.A.Y)/2 * suhen},
+		{BufPoz.B.X, BufPoz.B.Y - (BufPoz.B.Y - BufPoz.A.Y) / 2 * suhen},
+		{BufPoz.A.X,BufPoz.B.Y},
+		
+	};
+	auto hBrush = CreateSolidBrush(RGB(el.color.R, el.color.G, el.color.B));
+	SelectObject(dc, hBrush);
+	auto hPen = CreatePen(PS_INSIDEFRAME, 1, RGB(el.color.R, el.color.G, el.color.B));
+	SelectObject(dc, hPen);
+	Polygon(dc, Dvig, 4);
+	DeleteObject(hBrush);
+	DeleteObject(hPen);
+
+}
+
+Shader ShFaer(element el, COORD winsiz, HDC dc, vector<void*> vunif)
+{
+
+
+
 }
 
 

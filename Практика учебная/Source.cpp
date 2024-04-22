@@ -14,7 +14,7 @@
 
 using namespace std;
 void settingsSize();
-
+//PCOORD hend;
 
 int maxDigit(int x) {
 	int i;
@@ -44,12 +44,25 @@ element corpys  {
 };
 
 element optec{
-	{ 0.5f,0.49999f},
-	{ 0.15f /3, 0.10f},
+	{corpys.poz.x + corpys.size.x/2 + (0.15f / 3)/2,corpys.poz.y },
+	{ corpys.size.x /3, 1.0f * corpys.size.y *3},
 	{255,255,255},
 
 };
+element dvig{
+	{corpys.poz.x - corpys.size.x / 2 - (corpys.size.x / 4) / 2,corpys.poz.y },
+	{ corpys.size.x/4, 1.0f * corpys.size.y * 4},
+	{45,45,45},
 
+};
+
+element faer{
+
+		{dvig.poz.x - dvig.size.x/2 - (corpys.size.x / 4)/2,corpys.poz.y },
+	{ corpys.size.x / 4, 0.9f * corpys.size.y * 4},
+	{200,0,100},
+
+};
 
 
 element el{
@@ -75,15 +88,16 @@ int main() {
 	//indraw.push_back()
 	//M1.openMenu();
 	
-	float disp = 1.0f, spidStar = -0.1f, begin, end, dt, deb = 0, spidRec = 3;
+	float disp = 1.0f, spidStar = -0.1f, begin, end, dt, deb = 0, spidRec = 3, suhen = 0.5f;
 	//Изменение цвета
 	//Скорость звезд в экранах в секунду
 	//время начала
 	//время конца
 	//изменение времени
-	//
+	//сужение двигателя (от 0 до 1)
+
 	Obect invec;
-	vector<void*> un1,uncorp;
+	vector<void*> un1,uncorp, unDvig;
 
 	settingsSize();
 	//auto dc1 = CreateConsoleScreenBuffer(GENERIC_WRITE, 0, 0, CONSOLE_TEXTMODE_BUFFER, 0);
@@ -108,18 +122,35 @@ int main() {
 	int de = 5;
 	uncorp.push_back((void*)&de);//[3]
 
+	//Юниформ переменные для двигателя
+	unDvig.push_back((void*)&suhen);
+
 
 	//
 		//genel = 5;
-		invec.el = corpys;
-		invec.pShader = Recurs;
-		invec.un = uncorp;
-		indrawRocet.push_back(invec);
+
 
 		invec.el = optec;
 		invec.pShader = treugolnic;
 		invec.un = uncorp;
 		indrawRocet.push_back(invec);
+
+		invec.el = dvig;
+		invec.pShader = ShDvig;
+		invec.un = unDvig;
+		indrawRocet.push_back(invec);
+
+		invec.el = faer;
+		invec.pShader = ShDvig;
+		invec.un = unDvig;
+		indrawRocet.push_back(invec);
+
+
+		invec.el = corpys;
+		invec.pShader = Recurs;
+		invec.un = uncorp;
+		indrawRocet.push_back(invec);
+
 		//while (genel--) {
 		//	el = {
 		//		{ 1.0f + randf(0.1),randf(1)},
@@ -318,19 +349,19 @@ while (1) {
 		{
 		case '1':
 			A = { 320,200 };
-			
+
 			break;
 		case '2':
 			A = { 640,480 };
-			
+
 			break;
 		case '3':
 			A = { 1280,720 };
-			
+
 			break;
 		case '4':
 			A = { 1920,1000 };
-			
+
 
 			break;
 		case '5':
@@ -344,6 +375,10 @@ while (1) {
 					X = X * 10;
 					cout << ch;
 				}
+				else if (ch == '\b') {
+					cout << ch << ' '<< '\b';
+					X /= 10;
+				}
 				ch = _getch();
 			}
 			X = (X / 10);
@@ -351,15 +386,19 @@ while (1) {
 				continue;
 			else if (ch == '\r')
 				cout << endl;
-			else 
-			cout << ch;
-			
+			else
+				cout << ch;
+
 			ch = _getch();
 			for (i = 0; ch != 27 && ch != '\r' && ch != ' '; i++) {
 				if (ch >= 0x30 && ch <= 0x39) {
 					Y = Y + (ch - '0');
 					Y = Y * 10;
 					cout << ch;
+				}
+				else if (ch == '\b') {
+					cout << ch << ' ' << '\b';
+					Y /= 10;
 				}
 				ch = _getch();
 			}
@@ -372,10 +411,17 @@ while (1) {
 				cout << ch;
 			A.Y = Y;
 			A.X = X;
-			
-				//scanf_s("%d%d", (int*)&A.X, (int*)&A.Y);
-			
+
+			//scanf_s("%d%d", (int*)&A.X, (int*)&A.Y);
+
 			break;
+		//case 'f':
+		//	if (!SetConsoleDisplayMode(GetStdHandle(STD_OUTPUT_HANDLE), CONSOLE_WINDOWED_MODE, hend)){
+		//		 
+		//	std::cout << GetLastError();
+		//	system("pause");
+		//}
+		//		break;
 		case 27:
 			
 			return ;
