@@ -72,7 +72,7 @@ element el{
 };
 
 //{ (string)"Size", (*settingsSize)(), true }
-
+//WinMain
 int main() {
 	HDC dc2;
 	srand((unsigned int)time(0));
@@ -99,7 +99,7 @@ int main() {
 	Obect invec;
 	vector<void*> un1,uncorp, unDvig;
 
-	settingsSize();
+	//settingsSize();
 	//auto dc1 = CreateConsoleScreenBuffer(GENERIC_WRITE, 0, 0, CONSOLE_TEXTMODE_BUFFER, 0);
 	//SetConsoleActiveScreenBuffer(dc1);
 

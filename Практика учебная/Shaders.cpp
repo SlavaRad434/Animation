@@ -1,5 +1,8 @@
 #include "Shaders.h"
 //realPoz BufPoz;
+//#ifdef DEBUG
+//
+//#endif // DEBUG
 
 #define i Shader_i
 #define j Shader_j
