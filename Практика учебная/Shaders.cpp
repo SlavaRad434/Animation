@@ -188,10 +188,67 @@ Shader ShDvig(element el, COORD winsiz, HDC dc, vector<void*> vunif)
 Shader ShFaer(element el, COORD winsiz, HDC dc, vector<void*> vunif)
 {
 
+	i = 0;
+
+	float speedup = *(float*)vunif[0];
+	el.size.y = el.size.y * el.size.x * (winsiz.X / (float)winsiz.Y);
+
+	el.size.x *= speedup;
+	realPoz BufPoz;
+	converting(el, winsiz, &BufPoz);
+	vec2 elPoz = { -1,-1 };
+	vec2 elSize = { BufPoz.A.X - BufPoz.B.X,BufPoz.A.Y - BufPoz.B.Y };
+	vec2 pointInel[14]
+	{
+		{1,-1},
+
+		{1.0 - (2.0 / 7) * 2,-1 - 0.07 + 0.07 * speedup},
+		{1.0 - (2.0 / 7) * 3,-1 - 0.1 + 0.1 * speedup},
+		{1.0 - (2.0 / 7) * 4,-1 - 0.07 + 0.14 * speedup},
+		{1.0 - (2.0 / 7) * 5,-1 + 0.23 + 0.1 * speedup},
+		{1.0 - (2.0 / 7) * 6,-1 + 0.5 + 0.1 * speedup},
+		{-1.0 ,-1 + 0.9 - 0.1 * speedup},
+		{1,1},
+		{1.0 - (2.0 / 7) * 2,1 + 0.07 - 0.07 * speedup},
+		{1.0 - (2.0 / 7) * 3,1 + 0.1 - 0.1 * speedup},
+		{1.0 - (2.0 / 7) * 4,1 + 0.07 - 0.14 * speedup},
+		{1.0 - (2.0 / 7) * 5,1 - 0.23 - 0.1 * speedup},
+		{1.0 - (2.0 / 7) * 6,1 - 0.5 - 0.1 * speedup},
+		{-1.0 ,1 - 0.9 + 0.1 * speedup},
+	};
+
+
+	if (elPoz.y > pointInel[i].y - pointInel[i+1].y * elPoz.x)
+
+
+	//#F5563D  245 86 61
+	//#FAB75B	232 168 79
+
+	//#28ACCC 40 172 204
+	//#066F89 3	76	94
+		
 
 
 }
 
+	void qad(COORD* point, realPoz BufPoz, HDC dc) {
+		int j,i=0;
+		vec2 elPoz = { -1,-1 };
+		//vec2 elSize = { BufPoz.A.X - BufPoz.B.X,BufPoz.A.Y - BufPoz.B.Y };
+		for(; elPoz.y<1.0; elPoz.y +=)
+		j = (((point[i].Y * (1 - (elPoz.x + 1) / 2))+ (point[i+1].Y * (elPoz.x + 1) / 2))* (1 - (elPoz.y + 1))+
+			(point[i+3].Y * (1 - (elPoz.x + 1) / 2) + point[i + 2].Y * ((elPoz.x + 1) / 2)) * (elPoz.y + 1));
+
+				if ((pow(elPoz.x, 2) + pow(elPoz.y, 2)) <= 1) {
+					ColBuf = (el.color * (1 - dicp * (sqrt(abs(elPoz.x)) * sqrt(abs(elPoz.y)))));
+					col = RGB(ColBuf.R, ColBuf.G, ColBuf.B);
+					SetPixel(dc, i, j, col);
+				}
+
+			}
+
+
+	 }
 
 COLOR operator* (COLOR cord, float k) {
 	cord.R *= k;

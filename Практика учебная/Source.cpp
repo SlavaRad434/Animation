@@ -51,7 +51,7 @@ element optec{
 };
 element dvig{
 	{corpys.poz.x - corpys.size.x / 2 - (corpys.size.x / 4) / 2,corpys.poz.y },
-	{ corpys.size.x/4, 1.0f * corpys.size.y * 4},
+	{ corpys.size.x/4, 0.8f * corpys.size.y * 4},
 	{45,45,45},
 
 };
@@ -59,7 +59,7 @@ element dvig{
 element faer{
 
 		{dvig.poz.x - dvig.size.x/2 - (corpys.size.x / 4)/2,corpys.poz.y },
-	{ corpys.size.x / 4, 0.9f * corpys.size.y * 4},
+	{ corpys.size.x / 4, 0.9f * dvig.size.y},
 	{200,0,100},
 
 };
