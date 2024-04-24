@@ -30,10 +30,10 @@ void maxDigit() {
 	cout << x;
 
 }
-titles test[] = { { "Size", settingsSize, true,"1280 720"}, {"2", maxDigit, true,"as"}};
+//titles test[] = { { "Size", settingsSize, true,"1280 720"}, {"2", maxDigit, true,"as"}};
 
 Graphics Wid;//окно
-Menu M1(test,2);//меню
+//Menu M1(test,2);//меню
 vector<Obect> rocet;
 //element corpys,obtec,dvig;
 
@@ -71,9 +71,21 @@ element el{
 	{0,0,255},
 };
 
+void test(HDC dc)
+{
+	system("cls");
+	COORD tes[4]{ {100,50},
+		{100,10},
+		{100,400},
+		{400,100} };
+	qad(tes, dc);
+}
+
 //{ (string)"Size", (*settingsSize)(), true }
 //WinMain
 int main() {
+	
+	test(Wid.dc);
 	HDC dc2;
 	srand((unsigned int)time(0));
 	int i, j, lop = 0, vbeg = 0;//счетчики

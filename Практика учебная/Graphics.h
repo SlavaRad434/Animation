@@ -165,3 +165,4 @@ void Graphics::setSizeCon(COORD A) {
 //	
 //	return 1;
 //}
+

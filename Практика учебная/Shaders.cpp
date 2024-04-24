@@ -188,7 +188,7 @@ Shader ShDvig(element el, COORD winsiz, HDC dc, vector<void*> vunif)
 Shader ShFaer(element el, COORD winsiz, HDC dc, vector<void*> vunif)
 {
 
-	i = 0;
+	int i = 0;
 
 	float speedup = *(float*)vunif[0];
 	el.size.y = el.size.y * el.size.x * (winsiz.X / (float)winsiz.Y);
@@ -218,7 +218,7 @@ Shader ShFaer(element el, COORD winsiz, HDC dc, vector<void*> vunif)
 	};
 
 
-	if (elPoz.y > pointInel[i].y - pointInel[i+1].y * elPoz.x)
+//	if (elPoz.y > pointInel[i].y - pointInel[i + 1].y * elPoz.x);
 
 
 	//#F5563D  245 86 61
@@ -231,24 +231,46 @@ Shader ShFaer(element el, COORD winsiz, HDC dc, vector<void*> vunif)
 
 }
 
-	void qad(COORD* point, realPoz BufPoz, HDC dc) {
+//template <class T> 
+bool compCoordY(COORD x1, COORD x2) {
+	return x1.Y < x2.Y;
+
+}
+
+	void qad(COORD* point, HDC dc) {
 		int j,i=0;
+		double buf;
 		vec2 elPoz = { -1,-1 };
-		//vec2 elSize = { BufPoz.A.X - BufPoz.B.X,BufPoz.A.Y - BufPoz.B.Y };
-		for(; elPoz.y<1.0; elPoz.y +=)
-		j = (((point[i].Y * (1 - (elPoz.x + 1) / 2))+ (point[i+1].Y * (elPoz.x + 1) / 2))* (1 - (elPoz.y + 1))+
-			(point[i+3].Y * (1 - (elPoz.x + 1) / 2) + point[i + 2].Y * ((elPoz.x + 1) / 2)) * (elPoz.y + 1));
+		vec2 elSize;
+		elSize.y = (*(std::max_element(point, (point + 3), compCoordY))).Y - (*(std::min_element(point, (point + 3), compCoordY))).Y;
+			
+		for (elPoz.y = -1; elPoz.y <= 1.0; elPoz.y += 2.0 / elSize.y) 
+		{
+			buf = ((point[2].X * ((elPoz.y + 1) / 2) + point[1].X * (1-(elPoz.y + 1) / 2))
+				- ((point[0].X * (1 - (elPoz.y + 1) / 2)) + (point[3].X * (elPoz.y + 1) / 2))) / 2;
 
-				if ((pow(elPoz.x, 2) + pow(elPoz.y, 2)) <= 1) {
-					ColBuf = (el.color * (1 - dicp * (sqrt(abs(elPoz.x)) * sqrt(abs(elPoz.y)))));
-					col = RGB(ColBuf.R, ColBuf.G, ColBuf.B);
-					SetPixel(dc, i, j, col);
-				}
+				for (elPoz.x = -1; elPoz.x <= 1.0; elPoz.x += std::fabs(0.8/buf))
+				{
+			j = (((point[0].Y * (1 - (elPoz.x + 1) / 2)) + (point[1].Y * (elPoz.x + 1) / 2))  +
+				((point[3].Y * (1 - (elPoz.x + 1) / 2) + point[2].Y * ((elPoz.x + 1) / 2))
+				- ((point[0].Y * (1 - (elPoz.x + 1) / 2)) + (point[1].Y * (elPoz.x + 1) / 2)))/2 * (elPoz.y + 1));
 
+			i = ((point[0].X * (1 - (elPoz.y + 1) / 2)) + (point[3].X * (elPoz.y + 1) / 2)) +
+			buf * (elPoz.x + 1);
+		//	* (1 - (elPoz.y + 1))
+			//col= 
+			SetPixel(dc, i, j, 255);
+			}
+		}
+				//if ((pow(elPoz.x, 2) + pow(elPoz.y, 2)) <= 1) {
+				//	ColBuf = (el.color * (1 - dicp * (sqrt(abs(elPoz.x)) * sqrt(abs(elPoz.y)))));
+				//	col = RGB(ColBuf.R, ColBuf.G, ColBuf.B);
+				//	SetPixel(dc, i, j, col);
+				//}
+		while(1);
 			}
 
 
-	 }
 
 COLOR operator* (COLOR cord, float k) {
 	cord.R *= k;

@@ -12,13 +12,14 @@
 #include <cmath>
 #include <time.h>
 #include <deque>
+#include <algorithm>
 //#include <wingdi.h>
 
 using namespace std;
 
 struct vec2 {
-	float x = 0;
-	float y = 0;
+	double x = 0;
+	double y = 0;
 
 };
 struct vec3 {
@@ -84,6 +85,9 @@ Shader ShDvig(element el, COORD winsiz, HDC dc, vector<void*> vunif);
 
 void converting(element el, COORD winsiz, realPoz* BufPoz);
 
+Shader ShFaer(element el, COORD winsiz, HDC dc, vector<void*> vunif);
+
+void qad(COORD* point, HDC dc);
 
 COLOR GenRandColor();
 
